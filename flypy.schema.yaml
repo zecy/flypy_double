@@ -1,0 +1,104 @@
+# Rime schema settings
+# encoding: utf-8
+
+schema :
+  schema_id : flypy
+  name : 小鹤双拼双形
+  version : "2013.7.29"
+  author :
+    - 码表作者：小鹤双拼 www.flypy.com
+    - 方案作者：P1461@百度贴吧
+  description : |
+    小鹤双拼，双形作为辅助码可省略。
+switches:
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: flypy_zh_simp
+    reset: 1
+    states: [ 漢字, 汉字 ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+#    - fluency_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - script_translator
+  filters:
+    - simplifier
+    - uniquifier
+
+speller:
+  alphabet: 'zyxwvutsrqponmlkjihgfedcba;'
+  # 单引号作为隔音符号
+  #delimiter: " '"
+  algebra:
+    - fuzz/^(\w\w)\w+$/$1/
+    
+translator:
+  dictionary: flypy
+  #spelling_hints: 4
+  #strict_spelling: true
+  preedit_format:
+    - xform/\b([bpmfdtnljqx])n/$1iao/
+    - xform/\b(\w)g/$1eng/
+    - xform/\b(\w)q/$1iu/
+    - xform/\b(\w)w/$1ei/
+    - xform/\b([dtnlgkhjqxyvuirzcs])r/$1uan/
+    - xform/\b(\w)t/$1ve/
+    - xform/\b(\w)y/$1un/
+    - xform/\b([dtnlgkhvuirzcs])o/$1uo/
+    - xform/\b(\w)p/$1ie/
+    - xform/\b([jqx])s/$1iong/
+    - xform/\b(\w)s/$1ong/
+    - xform/\b(\w)d/$1ai/
+    - xform/\b(\w)f/$1en/
+    - xform/\b(\w)h/$1ang/
+    - xform/\b(\w)j/$1an/
+    - xform/\b([gkhvuirzcs])k/$1uai/
+    - xform/\b(\w)k/$1ing/
+    - xform/\b([jqxnl])l/$1iang/
+    - xform/\b(\w)l/$1uang/
+    - xform/\b(\w)z/$1ou/
+    - xform/\b([gkhvuirzcs])x/$1ua/
+    - xform/\b(\w)x/$1ia/
+    - xform/\b(\w)c/$1ao/
+    - xform/\b([dtgkhvuirzcs])v/$1ui/
+    - xform/\b(\w)b/$1in/
+    - xform/\b(\w)m/$1ian/
+    - xform/\b([aoe])\1(\w)/$1$2/
+    - "xform/(\b|[ '])v/$1zh/"
+    - "xform/(\b|[ '])i/$1ch/"
+    - "xform/(\b|[ '])u/$1sh/"
+    - xform/\b([jqxy])v/$1u/
+    - xform/\b([nl])v/$1ü/
+  
+simplifier:
+  option_name: flypy_zh_simp
+
+punctuator:
+  import_preset: default
+
+key_binder:
+  bindings:
+    #- { when: has_menu, accept: comma, send:   Page_Up }
+    #- { when: has_menu, accept: period, send:   Page_Down }
+    #- { when: has_menu, accept: "Control+Control_L", send: 2 }
+    #- { when: has_menu, accept: "Control+Control_R", send: 3 }
+    #- { when: composing, accept: "Tab", send: ; }
+      
+recognizer:
+  import_preset: default
