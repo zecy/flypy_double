@@ -4,20 +4,19 @@
 schema :
   schema_id : flypy
   name : 小鹤双拼双形
-  version : "2015.1.15"
+  version : "2013.7.29"
   author :
     - 码表作者：小鹤双拼 www.flypy.com
     - 方案作者：P1461@百度贴吧
-    - 方案修改：zecy@github.com
   description : |
-      #小鹤双拼，双形作为辅助码可省略。
-      小鹤双拼，双形为辅助码，可像拼音加加一样在成词后再加辅助码
+    小鹤双拼，双形作为辅助码可省略。
+  
 switches:
   - name: full_shape
-    states: [ 半, 全 ]
+    states: [ 半角, 全角 ]
   - name: flypy_zh_simp
     reset: 1
-    states: [ 繁, 简 ]
+    states: [ 漢字, 汉字 ]
 
 engine:
   processors:
@@ -44,18 +43,16 @@ engine:
     - uniquifier
 
 speller:
-  alphabet: 'zyxwvutsrqponmlkjihgfedcba'
+  alphabet: 'zyxwvutsrqponmlkjihgfedcba;'
   # 单引号作为隔音符号
   #delimiter: " '"
   algebra:
-    # 双拼拆分音节
     - fuzz/^(\w\w)\w+$/$1/
     
 translator:
   dictionary: flypy
-  #spelling_hints: 4
+  spelling_hints: 4
   strict_spelling: true
-  # 双拼规则
   preedit_format:
     - xform/\b([bpmfdtnljqx])n/$1iao/
     - xform/\b(\w)g/$1eng/
@@ -84,11 +81,12 @@ translator:
     - xform/\b(\w)b/$1in/
     - xform/\b(\w)m/$1ian/
     - xform/\b([aoe])\1(\w)/$1$2/
+    - "xform/(\b|[ '])v/$1zh/"
+    - "xform/(\b|[ '])i/$1ch/"
+    - "xform/(\b|[ '])u/$1sh/"
     - xform/\b([jqxy])v/$1u/
     - xform/\b([nl])v/$1ü/
-
-
-
+  
 simplifier:
   option_name: flypy_zh_simp
 
@@ -96,10 +94,14 @@ punctuator:
   import_preset: default
 
 key_binder:
-    bindings:
-      - { when: composing, accept: Shift, send: Escape }
-      - { when: has_menu, accept: semicolon, send: 2 }
-      - { when: has_menu, accept: apostrophe, send: 3 }
-      
+  bindings:
+    #- { when: has_menu, accept: comma, send:   Page_Up }
+    #- { when: has_menu, accept: period, send:   Page_Down }
+    #- { when: has_menu, accept: "Control+Control_L", send: 2 }
+    #- { when: has_menu, accept: "Control+Control_R", send: 3 }
+    #- { when: composing, accept: "Tab", send: ; }
+    - { when: has_menu, accept: semicolon, send: 2 }
+    - { when: has_menu, accept: apostrophe, send: 3 }
+     
 recognizer:
   import_preset: default
