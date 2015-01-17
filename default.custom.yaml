@@ -1,8 +1,0 @@
-patch:
-  menu:
-    page_size: 3
-  switch_key:
-    Shift_L: clear
-  schema_list:
-    - schema: luna_pinyin_simp
-    - schema: flypy

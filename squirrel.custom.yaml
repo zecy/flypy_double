@@ -1,6 +1,0 @@
-patch:
-  us_keyboard_layout: false
-  style:
-    horizontal: true
-    font_point: 18
-    inline_preedit: true
