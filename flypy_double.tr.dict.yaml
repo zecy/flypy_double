@@ -2,7 +2,7 @@
 # encoding: utf-8
 #
 # flypy - 小鹤双拼加形
-#
+# 繁体字码表
 --- 
 name : flypy_double.tr
 version :  "2015.1.17"
