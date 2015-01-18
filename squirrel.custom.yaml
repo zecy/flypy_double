@@ -4,5 +4,4 @@ patch:
     horizontal: true
     inline_preedit: true
     corner_radius: 0
-    #font_face: 'Lucida Grande'  # supporting soft cursor '›'
     font_point: 22
