@@ -1,0 +1,15 @@
+patch:
+  menu:
+    page_size: 3
+  ascii_composer:
+    switch_key:
+      Shift_L: clear
+  schema_list:
+    - schema: flypy_double
+  key_binder:
+    bindings:
+      - { when: has_menu, accept: semicolon, send: 2 }
+      - { when: has_menu, accept: apostrophe, send: 3 }
+      - { when:paging, accept: equal, send: Page_Down }
+      - { when:has_menu, accept: minus, send: Page_Up }
+
