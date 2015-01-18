@@ -1,14 +1,10 @@
 # Rime extended dictionary
 # encoding: utf-8
-#
-# 
-#
 ---
 name: flypy.basic
 version: "2013.07.29"
 sort: by_weight
 use_preset_vocabulary: false
-
 ...
 阿爸	aa ba	1
 嗷嗷待哺	ao ao dd bu	1
