@@ -7,10 +7,10 @@ schema :
   version : "2015.1.15"
   author :
     - 码表作者：小鹤双拼 www.flypy.com
-    - 方案作者：P1461@百度贴吧
+    - 原方案作者：P1461@百度贴吧
     - 方案修改：zecy@github.com
   description : |
-      小鹤双拼，双形为辅助码，可像拼音加加一样在成词后再加辅助码
+      小鹤双拼，双形为辅助码，有需要时按 tab 键移动光标补加形码。
 switches:
   - name: full_shape
     states: [ 半角, 全角 ]
@@ -28,6 +28,7 @@ engine:
     - selector
     - navigator
     - express_editor
+    - fluid_editor
   segmentors:
     - ascii_segmentor
     - matcher
@@ -44,23 +45,32 @@ engine:
 speller:
   alphabet: 'zyxwvutsrqponmlkjihgfedcba'
   algebra:
-  # 双拼拆分音节
-    - fuzz/^(\w\w)\w+$/$1/
-    
-translator:
-  dictionary: flypy_double
-  #spelling_hints: 4
-  strict_spelling: true
+    # 双拼音节切分。如果不设置只能严格按照码表输出。
+    # 如码表中「项」字编码为「xlg」。
+    # 如果不该项，输入「xl」将不会出现「项」，为自组词造成麻烦。
+    - fuzz/^(\w\w)\w*/$1/
 
-simplifier:
-  option_name: flypy_zh_simp
+translator:
+  # 有简体字、繁体字两个单字码表，另外有一个常用词语码表。码表来自小鹤官网。
+  dictionary: flypy_double 
 
 punctuator:
-  import_preset: default
+  import_preset: symbols
+
+simplifier:
+  # 把默认状态下的简体转换为繁体。目前无法正常工作。
+  # 在只有简体码表的情况下无法输出繁体字。
+  # 在同时有简体和繁体码表的情况下，关闭时只能输出简体字，打开时简体字和繁体字都能输出。
+  # 无法通过转换只输出简体字或者繁体字。
+  option_name: flypy_zh_simp
+  opencc_option: s2t.json
 
 key_binder:
-    bindings:
-      - { when: has_menu, accept: semicolon, send: 2 }
-      - { when: has_menu, accept: apostrophe, send: 3 }
+  import_preset: default
+  bindings:
+    # 把 tab 映射为右箭头，通过光标移动到相应音节以便添加形码
+    - { when: composing, accept: "Tab", send: 'Right' }
+    - { when: has_menu, accept: "Tab", send: 'Right' }
+        
 recognizer:
   import_preset: default
